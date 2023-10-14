@@ -1,8 +1,7 @@
 .header {
-  background-image: url(../../public/assets/images/header.jpg);
-  object-fit: cover;
+  background-image: url(..//assets/images/header.jpg);
+  background-size: cover;
   background-repeat: no-repeat;
-  background-size: 100%;
   background-position: center;
   width: 100%;
 }
