@@ -1,0 +1,12 @@
+.header {
+  background-image: url(../../public/assets/images/header.jpg);
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  width: 100%;
+}
+
+.corouselBox{
+  margin-bottom:-80px
+}
