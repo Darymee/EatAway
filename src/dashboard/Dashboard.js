@@ -11,7 +11,7 @@ import { getDashboardData } from "./service";
 import { useEffect, useState } from "react";
 import logo from "..//assets/images/logo.png";
 
-// import AddPostModal from "../addPostModal/AddPostModal";
+import AddPostModal from "../addPostModal/AddPostModal";
 
 export default function Dashboard() {
   const [post, setPost] = useState(null);
@@ -138,7 +138,7 @@ export default function Dashboard() {
             ))
           : "No results found according to filter"}
       </div>
-      {/* {isOpen && <AddPostModal onClose={setIsOpen} />} */}
+      {isOpen && <AddPostModal onClose={setIsOpen} />}
     </div>
   );
 }
