@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./AddPostModal.module.css";
 import { addNewPost } from "../dashboard/service";
 
-export default function AddPostModal({ setIsOpen }) {
+export default function AddPostModal({ onClose }) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
@@ -14,6 +14,8 @@ export default function AddPostModal({ setIsOpen }) {
   const [img, setImg] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,6 +33,29 @@ export default function AddPostModal({ setIsOpen }) {
       description,
       tag,
     };
+
+    try {
+      setIsDisabled(true);
+      await addNewPost(newPost);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsDisabled(false);
+    }
+
+    setUsername("");
+    setCity("");
+    setAvatarUrl("");
+    setImg("");
+    setEmail("");
+    setLocation("");
+    setTitle("");
+    setTime("");
+    setDescription("");
+    setTag("");
+    setPrice(0);
+
+    onClose(false);
   };
 
   return (
@@ -38,7 +63,7 @@ export default function AddPostModal({ setIsOpen }) {
       <div className="modal-box">
         <button
           className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          onClick={() => setIsOpen(false)}
+          onClick={() => onClose(false)}
         >
           ✕
         </button>
@@ -201,6 +226,7 @@ export default function AddPostModal({ setIsOpen }) {
           <input
             type="submit"
             value="Add new post"
+            disabled={isDisabled}
             className={
               styles.btnSubmit +
               " bg-amber-700 px-4 py-2 rounded mt-4 text-white cursor-pointer"

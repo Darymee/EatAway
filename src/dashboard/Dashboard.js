@@ -4,16 +4,19 @@ import {
   FaHamburger,
   FaCookieBite,
   FaRegClock,
-  FaPlus
+  FaPlus,
 } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
 import { getDashboardData } from "./service";
 import { useEffect, useState } from "react";
-import logo from '..//assets/images/logo.png'
+import logo from "..//assets/images/logo.png";
+
+import AddPostModal from "../addPostModal/AddPostModal";
 
 export default function Dashboard() {
   const [post, setPost] = useState(null);
   const [search, setSearch] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   async function getPosts() {
     const data = await getDashboardData();
@@ -52,9 +55,9 @@ export default function Dashboard() {
     <div className="">
       <div className={styles.header + " pt-4 pb-10 px-10"}>
         <div className="nav flex justify-between">
-          <img src={logo} alt="logo" className="w-32"/>
-          <button className="btn" onClick={()=>document.getElementById('my_modal_3').showModal()}>
-            <FaPlus/>
+          <img src={logo} alt="logo" className="w-32" />
+          <button className="btn" onClick={() => setIsOpen(true)}>
+            <FaPlus />
           </button>
         </div>
         <div className="flex flex-col justify-center items-center my-20">
@@ -90,7 +93,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      <div className="p-10 gap-4 flex flex-wrap justify-center">
+      <div className="p-10 gap-8 flex flex-wrap justify-center">
         {filtered?.length > 0
           ? filtered?.map((el, id) => (
               <div key={id} className="card w-96 bg-base-100 shadow-xl">
@@ -135,6 +138,7 @@ export default function Dashboard() {
             ))
           : "No results found according to filter"}
       </div>
+      {isOpen && <AddPostModal onClose={setIsOpen} />}
     </div>
   );
 }
