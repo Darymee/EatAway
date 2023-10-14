@@ -103,7 +103,7 @@ export default function Dashboard() {
                 <div className="card-body">
                   <h2 className="card-title">{el.title}</h2>
                   <p className="text-start">
-                    {el.city} <br />
+                    {el.description} <br />
                     <span className="badge badge-outline font-bold text-lg text-amber-700">
                       {el.price}€
                     </span>
