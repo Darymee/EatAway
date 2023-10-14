@@ -218,8 +218,8 @@ export default function AddPostModal({ onClose }) {
               onChange={(e) => setTag(e.target.value)}
             >
               <option value="">Choose your tag</option>
-              <option value="drink">Drink</option>
-              <option value="snack">Snack</option>
+              <option value="drinks">Drink</option>
+              <option value="snacks">Snack</option>
               <option value="food">Food</option>
             </select>
           </div>
