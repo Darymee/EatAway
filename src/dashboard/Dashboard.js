@@ -98,7 +98,7 @@ export default function Dashboard() {
           ? filtered?.map((el, id) => (
               <div key={id} className="card w-96 bg-base-100 shadow-xl">
                 <figure>
-                  <img src={el.img} alt={el.img} />
+                  <img src={el.img} alt={el.img} className={styles.image} />
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title">{el.title}</h2>

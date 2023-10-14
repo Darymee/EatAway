@@ -56,6 +56,8 @@ export default function AddPostModal({ onClose }) {
     setPrice(0);
 
     onClose(false);
+
+    window.location.reload();
   };
 
   return (
