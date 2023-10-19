@@ -81,7 +81,7 @@ export default function Dashboard() {
           {filters.map((el, id) => (
             <div
               key={id}
-              className="carousel-item flex flex-col justify-center items-center rounded-box py-4 px-7 gap-2 bg-gray-100"
+              className="carousel-item flex flex-col justify-center items-center rounded-box py-4 px-4 gap-2 bg-gray-100"
               onClick={() => setSearch(el.name)}
             >
               {el.icon}
