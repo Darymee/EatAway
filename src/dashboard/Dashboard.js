@@ -5,6 +5,7 @@ import {
   FaCookieBite,
   FaRegClock,
   FaPlus,
+  FaRegTimesCircle,
 } from 'react-icons/fa';
 import { FaLocationDot } from 'react-icons/fa6';
 import { getDashboardData } from './service';
@@ -17,6 +18,8 @@ export default function Dashboard() {
   const [post, setPost] = useState(null);
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isFilterClicked, setIsFilterClicked] = useState(false);
+  const [isSearch, setIsSearch] = useState(false);
 
   async function getPosts() {
     const data = await getDashboardData();
@@ -80,13 +83,29 @@ export default function Dashboard() {
           <p className="text-white font-medium text-xl mt-5 mb-10">
             Taste the World, Speak Your Mind: Eat Away!
           </p>
-          <div className="form-control w-full md:w-1/2 xl:w-1/4">
+          <div className="form-control w-full md:w-1/2 xl:w-1/4 relative">
             <input
               type="text"
               placeholder="Search…"
+              value={search}
               className="input input-bordered w-full"
-              onChange={e => setSearch(e.target.value)}
+              onChange={e => {
+                setSearch(e.target.value);
+                !e.target.value ? setIsSearch(false) : setIsSearch(true);
+              }}
             />
+            {isSearch && (
+              <button
+                type="button"
+                onClick={() => {
+                  setSearch('');
+                  setIsSearch(false);
+                }}
+                className="absolute right-3 top-3"
+              >
+                <FaRegTimesCircle size={24} className="text-accent" />
+              </button>
+            )}
           </div>
         </div>
 
@@ -94,8 +113,11 @@ export default function Dashboard() {
           {filters.map((el, id) => (
             <div
               key={id}
-              className="w-full flex flex-col justify-center items-center rounded-box py-4 px-4 gap-2 bg-gray-100"
-              onClick={() => setSearch(el.name)}
+              className="w-full flex flex-col justify-center items-center rounded-box p-4 gap-2 bg-gray-100"
+              onClick={() => {
+                setSearch(el.name);
+                setIsFilterClicked(true);
+              }}
             >
               {el.icon}
               <p className="rounded-box text-base font-semibold uppercase">
@@ -105,6 +127,20 @@ export default function Dashboard() {
           ))}
         </div>
       </div>
+
+      {isFilterClicked && search && (
+        <button
+          type="button"
+          onClick={() => {
+            setSearch('');
+            setIsFilterClicked(false);
+          }}
+          className="flex items-center gap-2 justify-center my-4 mx-auto text-base font-semibold uppercase rounded-box p-4 bg-gray-100"
+        >
+          Remove filter
+          <FaRegTimesCircle className="text-4xl text-accent" />
+        </button>
+      )}
 
       <div className="p-10 gap-8 flex flex-wrap justify-center">
         {filtered?.length > 0
@@ -117,7 +153,7 @@ export default function Dashboard() {
                   <h2 className="card-title">{el.title}</h2>
                   <p className="text-start">
                     {el.description} <br />
-                    <span className="badge badge-outline font-bold text-lg text-accent">
+                    <span className="badge badge-outline font-bold text-lg text-accent my-2">
                       {el.price}€
                     </span>
                   </p>
