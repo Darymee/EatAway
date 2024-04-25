@@ -192,7 +192,7 @@ export default function Dashboard() {
       )}
 
       {!post && (
-        <div className="flex justify-center">
+        <div className="flex justify-center my-4">
           <Watch
             visible={true}
             height="80"
